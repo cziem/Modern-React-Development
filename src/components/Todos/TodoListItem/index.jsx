@@ -1,14 +1,19 @@
 import React from "react";
 import "./styles.css";
 
-const TodoListItem = ({ todo }) => {
+const TodoListItem = ({ todo, onRemovePressed }) => {
   return (
     <div className="todo-item-container">
       <h3>{todo.text}</h3>
 
       <div className="btns-container">
         <button className="btn btn-complete">Completed</button>
-        <button className="btn btn-remove">Remove</button>
+        <button
+          onClick={() => onRemovePressed(todo.text)}
+          className="btn btn-remove"
+        >
+          Remove
+        </button>
       </div>
     </div>
   );

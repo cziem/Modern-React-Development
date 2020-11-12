@@ -33,6 +33,7 @@
   transition: all ease-in-out 0.2s;
   cursor: pointer;
   text-transform: uppercase;
+  outline: 0;
 }
 
 .new-todo-button:hover {
