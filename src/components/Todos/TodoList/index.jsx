@@ -3,13 +3,22 @@ import NewTodoForm from "../NewTodoForm";
 import TodoListItem from "../TodoListItem";
 import "./styles.css";
 
-const TodoList = ({ todos = [] }) => {
+const TodoList = ({
+  todos = [
+    { text: "Hello World" },
+    { text: "Danny Drake" },
+    { text: "Johnny Grill" },
+  ],
+}) => {
   return (
     <div className="list-wrapper">
       <NewTodoForm />
-      {todos.map((todo) => (
-        <TodoListItem todo={todo} />
-      ))}
+
+      <div className="list__container">
+        {todos.map((todo) => (
+          <TodoListItem todo={todo} />
+        ))}
+      </div>
     </div>
   );
 };
