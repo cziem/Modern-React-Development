@@ -5,9 +5,21 @@ import NewTodoForm from "../NewTodoForm";
 import TodoListItem from "../TodoListItem";
 import { removeTodo, completeTodo } from "../../../store/actions";
 import "./styles.css";
+import { loadTodos } from "../../../store/thunks";
 
-const TodoList = ({ todos, onRemovePressed, onCompletePressed }) => {
-  return (
+const TodoList = ({
+  todos,
+  isLoading,
+  onRemovePressed,
+  onCompletePressed,
+  onStartLoadingTodos,
+}) => {
+  React.useEffect(() => {
+    onStartLoadingTodos();
+  }, []);
+
+  const loadingMessage = <div>Loading data...</div>;
+  const content = (
     <div className="list-wrapper">
       <NewTodoForm />
 
@@ -27,13 +39,17 @@ const TodoList = ({ todos, onRemovePressed, onCompletePressed }) => {
       </div>
     </div>
   );
+
+  return isLoading ? loadingMessage : content;
 };
 
-const mapStateToProps = ({ todos }) => ({
+const mapStateToProps = ({ todos, isLoading }) => ({
+  isLoading,
   todos,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  onStartLoadingTodos: () => dispatch(loadTodos()),
   onRemovePressed: (text) => dispatch(removeTodo(text)),
   onCompletePressed: (text) => dispatch(completeTodo(text)),
 });
