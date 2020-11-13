@@ -1,9 +1,10 @@
 import React from "react";
-import { TodoListWrap } from "./styles";
+import { TodoListWrap, TodoListWrapWithWarning } from "./styles";
 
 const TodoListItem = ({ todo, onRemovePressed, onCompletePressed }) => {
+  const Container = todo.isCompleted ? TodoListWrap : TodoListWrapWithWarning;
   return (
-    <TodoListWrap complete={todo.isCompleted} createdAt={todo.createdAt}>
+    <Container complete={todo.isCompleted} createdAt={todo.createdAt}>
       <section className="text_item">
         <h3>{todo.text}</h3>
         <small>created: {new Date(todo.createdAt).toLocaleDateString()}</small>
@@ -26,7 +27,7 @@ const TodoListItem = ({ todo, onRemovePressed, onCompletePressed }) => {
           Remove
         </button>
       </div>
-    </TodoListWrap>
+    </Container>
   );
 };
 
