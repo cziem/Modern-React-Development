@@ -1,5 +1,10 @@
 import styled from "styled-components";
 
+export const getBorderStyleForOldTodos = (startingDate, currentDate) =>
+  startingDate < new Date(currentDate - 86400000 * 3)
+    ? "2px solid #ff000061"
+    : "none";
+
 export const TodoListWrap = styled("div")`
   display: flex;
   justify-content: space-between;
@@ -12,10 +17,6 @@ export const TodoListWrap = styled("div")`
   cursor: pointer;
   transition: margin-left ease-in-out 0.2s;
   border-left: ${({ complete }) => complete && "4px solid #2ebbbb"};
-  border-bottom: ${({ createdAt, complete }) =>
-    new Date(createdAt) < new Date(Date.now() - 8640000 * 3) && !complete
-      ? "2px solid #ff000061"
-      : "none"};
 
   &:hover {
     margin-left: 0.3rem;
@@ -74,4 +75,9 @@ export const TodoListWrap = styled("div")`
       margin: 0;
     }
   }
+`;
+
+export const TodoListWrapWithWarning = styled(TodoListWrap)`
+  border-bottom: ${({ createdAt }) =>
+    getBorderStyleForOldTodos(new Date(createdAt), Date.now())};
 `;
