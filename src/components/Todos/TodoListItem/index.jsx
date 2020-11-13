@@ -1,16 +1,13 @@
 import React from "react";
-import "./styles.css";
+import { TodoListWrap } from "./styles";
 
 const TodoListItem = ({ todo, onRemovePressed, onCompletePressed }) => {
   return (
-    <div
-      className={
-        todo.isCompleted
-          ? "todo-item-container complete"
-          : "todo-item-container"
-      }
-    >
-      <h3>{todo.text}</h3>
+    <TodoListWrap complete={todo.isCompleted} createdAt={todo.createdAt}>
+      <section className="text_item">
+        <h3>{todo.text}</h3>
+        <small>created: {new Date(todo.createdAt).toLocaleDateString()}</small>
+      </section>
 
       <div className="btns-container">
         {todo.isCompleted ? null : (
@@ -29,7 +26,7 @@ const TodoListItem = ({ todo, onRemovePressed, onCompletePressed }) => {
           Remove
         </button>
       </div>
-    </div>
+    </TodoListWrap>
   );
 };
 
