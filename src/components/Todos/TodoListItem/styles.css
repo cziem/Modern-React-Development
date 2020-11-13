@@ -48,6 +48,10 @@
   color: #be4040;
 }
 
+.complete {
+  border-left: 4px solid #2ebbbb;
+}
+
 @media screen and (max-width: 824px) {
   .todo-item-container {
     width: 90%;

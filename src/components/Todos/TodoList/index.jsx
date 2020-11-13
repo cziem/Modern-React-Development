@@ -9,9 +9,15 @@ import {
   removeTodoRequest,
   markTodoAsCompleteRequest,
 } from "../../../store/thunks";
+import {
+  getCompletedTodos,
+  getIncompleteTodos,
+  getTodosLoading,
+} from "../../../store/selectors";
 
 const TodoList = ({
-  todos,
+  completedTodos,
+  inCompleteTodos,
   isLoading,
   onRemovePressed,
   onCompletePressed,
@@ -27,8 +33,25 @@ const TodoList = ({
       <NewTodoForm />
 
       <div className="list__container">
-        {!!todos.length ? (
-          todos.map((todo, idx) => (
+        <h3 className="list__container__titile">Pending Todos</h3>
+        {!!inCompleteTodos.length ? (
+          inCompleteTodos.map((todo, idx) => (
+            <TodoListItem
+              key={`${todo.text}-${idx}`}
+              todo={todo}
+              onRemovePressed={onRemovePressed}
+              onCompletePressed={onCompletePressed}
+            />
+          ))
+        ) : (
+          <NoData message="No todos yet, add one" />
+        )}
+      </div>
+
+      <div className="list__container">
+        <h3 className="list__container__titile">Completed</h3>
+        {!!completedTodos.length ? (
+          completedTodos.map((todo, idx) => (
             <TodoListItem
               key={`${todo.text}-${idx}`}
               todo={todo}
@@ -46,9 +69,10 @@ const TodoList = ({
   return isLoading ? loadingMessage : content;
 };
 
-const mapStateToProps = ({ todos, isLoading }) => ({
-  isLoading,
-  todos,
+const mapStateToProps = (state) => ({
+  isLoading: getTodosLoading(state),
+  completedTodos: getCompletedTodos(state),
+  inCompleteTodos: getIncompleteTodos(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
