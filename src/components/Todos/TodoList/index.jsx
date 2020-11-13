@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import NoData from "../../NoData";
 import NewTodoForm from "../NewTodoForm";
 import TodoListItem from "../TodoListItem";
-import "./styles.css";
 import {
   loadTodos,
   removeTodoRequest,
@@ -14,6 +13,7 @@ import {
   getIncompleteTodos,
   getTodosLoading,
 } from "../../../store/selectors";
+import { ListWrapper } from "./styles";
 
 const TodoList = ({
   completedTodos,
@@ -29,7 +29,7 @@ const TodoList = ({
 
   const loadingMessage = <div>Loading data...</div>;
   const content = (
-    <div className="list-wrapper">
+    <ListWrapper>
       <NewTodoForm />
 
       <div className="list__container">
@@ -63,7 +63,7 @@ const TodoList = ({
           <NoData message="No todos yet, add one" />
         )}
       </div>
-    </div>
+    </ListWrapper>
   );
 
   return isLoading ? loadingMessage : content;
