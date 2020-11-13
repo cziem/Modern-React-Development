@@ -66,13 +66,21 @@ export const TodoListWrap = styled("div")`
   }
 
   @media screen and (max-width: 824px) {
-    .todo-item-container {
-      width: 90%;
-    }
+    width: 90%;
 
     .btn {
       flex-grow: 0;
       margin: 0;
+    }
+  }
+
+  @media screen and (max-width: 420px) {
+    .btns-container {
+      flex-direction: column;
+    }
+
+    .btn {
+      margin-bottom: 0.2rem;
     }
   }
 `;
