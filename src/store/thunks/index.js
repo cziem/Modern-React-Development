@@ -1,8 +1,11 @@
 import { SERVER_URL } from "../../constants";
 import {
+  completeTodo,
+  createTodo,
   loadTodosFailure,
   loadTodosInProgress,
   loadTodosSuccess,
+  removeTodo,
 } from "../actions";
 
 export const loadTodos = () => async (dispatch, getState) => {
@@ -14,6 +17,56 @@ export const loadTodos = () => async (dispatch, getState) => {
     dispatch(loadTodosSuccess(todos));
   } catch (error) {
     dispatch(loadTodosFailure());
+    dispatch(displayAlert(error));
+  }
+};
+
+export const addTodoRequest = (text) => async (dispatch) => {
+  try {
+    const body = JSON.stringify({ text });
+    const response = await fetch(`${SERVER_URL}/todos`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "post",
+      body,
+    });
+
+    const todo = await response.json();
+    dispatch(createTodo(todo));
+  } catch (error) {
+    dispatch(displayAlert(error));
+  }
+};
+
+export const removeTodoRequest = (id) => async (dispatch) => {
+  try {
+    const response = await fetch(`${SERVER_URL}/todos/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "delete",
+    });
+
+    const removedTodo = await response.json();
+    dispatch(removeTodo(removedTodo));
+  } catch (error) {
+    dispatch(displayAlert(error));
+  }
+};
+
+export const markTodoAsCompleteRequest = (id) => async (dispatch) => {
+  try {
+    const response = await fetch(`${SERVER_URL}/todos/${id}/completed`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "post",
+    });
+
+    const completedTodo = await response.json();
+    dispatch(completeTodo(completedTodo));
+  } catch (error) {
     dispatch(displayAlert(error));
   }
 };
