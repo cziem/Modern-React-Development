@@ -9,6 +9,7 @@ import {
   removeTodoRequest,
   markTodoAsCompleteRequest,
 } from "../../../store/thunks";
+import { getTodos, getTodosLoading } from "../../../store/selectors";
 
 const TodoList = ({
   todos,
@@ -46,9 +47,9 @@ const TodoList = ({
   return isLoading ? loadingMessage : content;
 };
 
-const mapStateToProps = ({ todos, isLoading }) => ({
-  isLoading,
-  todos,
+const mapStateToProps = (state) => ({
+  isLoading: getTodosLoading(state),
+  todos: getTodos(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
