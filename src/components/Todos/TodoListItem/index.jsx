@@ -3,7 +3,13 @@ import "./styles.css";
 
 const TodoListItem = ({ todo, onRemovePressed, onCompletePressed }) => {
   return (
-    <div className="todo-item-container">
+    <div
+      className={
+        todo.isCompleted
+          ? "todo-item-container complete"
+          : "todo-item-container"
+      }
+    >
       <h3>{todo.text}</h3>
 
       <div className="btns-container">
